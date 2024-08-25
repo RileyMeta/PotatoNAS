@@ -1,1 +1,541 @@
-
+* {
+    margin: 0;
+    padding: 0;
+}
+* i {
+    transform: translateY(0px);
+}
+html, body {
+    font-family: sans-serif;
+    color: white;
+    background-color: gray;
+    overflow-x: hidden;
+}
+nav {
+    padding: 1em 0;
+    width: 100%;
+    background-color: #bfbfbf;
+    text-align: center;
+}
+nav button {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 2rem;
+    padding: 0 0.5em;
+    cursor: pointer;
+    transition: 0.35s;
+    filter: drop-shadow(0 0 0.25rem gray);
+}
+nav button:hover {
+    color: black;
+    transition: 0.35s;
+}
+nav .menu-button {
+    float: left;
+}
+nav span {
+    font-size: 2rem;
+    padding: 0px auto;
+    font-weight: bold;
+    filter: drop-shadow(0 0 0.25rem gray);
+}
+nav span i {
+    transform: translateY(1px);
+}
+nav .right-buttons {
+    float: right;
+}
+nav .settings-button {
+    padding-right: 0.5em;
+}
+nav .power-button {
+    padding-left: 0;
+}
+nav .context_menu {
+    float: right;
+}
+.dropshadow1 {
+    position: absolute;
+    top: 4.5em;
+    width: 100%;
+    height: 0.35rem;
+    background-color: #575757;
+}
+#sidenav {
+    background-color: darkgray;
+    height: auto;
+    width: 18em;
+    border: 4px solid white;
+    position: absolute;
+    left: -400px;
+    transition: 0.35s;
+    z-index: 50;
+    filter: drop-shadow(0 0 0.5rem black);
+}
+.systemInfo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid white;
+    height: 4em;
+    font-weight: bold;
+    padding: 0 auto;
+}
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.systemInfo span {
+    text-align: center;
+    width: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.systemInfo span a {
+    color: white;
+    text-decoration: none;
+}
+.systemInfo span a:hover {
+    color: gray;
+    filter: drop-shadow(0 0 0.15rem gray)
+}
+#sidenav ul {
+    list-style: none;
+}
+#sidenav ul li {
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+#sidenav ul li a {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid white;
+    box-sizing: border-box;
+    padding: 1em;
+    transition: 0.35s;
+}
+#sidenav ul li a:hover {
+    transition: 0.35s;
+    background-color: gray
+}
+#optionsMenu {
+    z-index: 48;
+    position: absolute;
+    right: -200px;
+    border: 4px solid white;
+    background-color: darkgray;
+    transition: 0.35s;
+    filter: drop-shadow(0 0 0.25rem gray);
+}
+#optionsMenu ul {
+    list-style: none;
+}
+#optionsMenu ul li a {
+    display: flex;
+    padding: 1em 1em;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+#optionsMenu ul li a:hover {
+    background-color: gray;
+}
+#powerMenu {
+    z-index: 49;
+    position: absolute;
+    right: -150px;
+    border: 4px solid white;
+    background-color: darkgray;
+    transition: 0.35s;
+    filter: drop-shadow(0 0 0.25rem gray);
+}
+#powerMenu ul {
+    list-style: none;
+}
+#powerMenu ul li a {
+    display: flex;
+    padding: 1em 1em;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+#powerMenu ul li a:hover {
+    background-color: gray;
+}
+/* Mobile-Nav */
+.mobile-nav {
+    font-weight: bold;
+    background-color: #bfbfbf;
+    display: none;
+    align-items: center;
+    width: 100%;
+    height: 4em;
+    text-align: center;
+    color: white;
+    z-index: 800;
+    padding: 0.25em;
+    position: absolute;
+}
+#mobileMenu {
+    z-index: 550;
+    float: left;
+    border: none;
+    background: none;
+    padding: .5em;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    transition: 0.45s;
+    filter: drop-shadow(0 0 0.25rem gray);
+}
+#mobileMenu:hover {
+    color: black;
+    transition: 0.35s;
+}
+.mobile-nav span {
+    z-index: 500;
+    font-size: 2rem;
+    padding: 0px auto;
+    font-weight: bold;
+    filter: drop-shadow(0 0 0.25rem gray);
+    text-align: center;
+    width: 100%;
+}
+#mobilePower {
+    z-index: 0;
+    background: none;
+    border: none;
+    color: white;
+    padding-right: 1em;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.45s;
+    filter: drop-shadow(0 0 0.25rem gray);
+}
+#mobilePower:hover {
+    color: black;
+    transition: 0.35s;
+}
+#mobile-options {
+    position: absolute;
+    z-index: 50;
+    top: -50em;
+    display: block;
+    width: 100%;
+    background-color: darkgray;
+    text-align: center;
+    transition: 0.35s;
+    filter: drop-shadow(0 0 0.35rem #3d3d3d);
+}
+#mobile-options ul {
+    list-style: none;
+    width: 100%;
+}
+#mobile-options ul li {
+    border: 1px solid white;
+    display: flex;
+}
+#mobile-options ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 1em 0;
+    width: 100%;
+    padding: auto;
+    transition: 0.35s;
+}
+#mobile-options ul li a:hover {
+    background-color: gray;
+    transition: 0.35s;
+}
+#mobilePower-submenu {
+    z-index: 100;
+    position: absolute;
+    left: 3.75em;
+    top: -50em;
+    margin-top: 2em;
+    width: 75%;
+    background-color: darkgray;
+    padding: 0;
+    border: 4px solid white;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 0.35rem #3d3d3d);
+    transition: 0.35s;
+}
+#mobilePower-submenu ul {
+    list-style: none;
+    width: 100%;
+}
+#mobilePower-submenu ul li {
+    text-align: center;
+    display: flex;
+}
+#mobilePower-submenu ul li a {
+    color: white;
+    width: 100%;
+    text-decoration: none;
+    border-top: 1px solid white;
+    padding: 1em;
+}
+#mobilePower-submenu ul li a:hover {
+    background-color: gray;
+}
+#mobile-cancel {
+    margin-top: 1em;
+    border-bottom: 1px solid white;
+}
+#mobile-shutdown {
+    border-bottom: 1px solid white;
+}
+#mobileSettings-submenu {
+    z-index: 100;
+    position: absolute;
+    left: 3.75em;
+    top: -50em;
+    margin-top: 2em;
+    width: 75%;
+    background-color: darkgray;
+    padding: 0;
+    border: 4px solid white;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 0.35rem #3d3d3d);
+    transition: 0.35s;
+}
+#mobileSettings-submenu ul {
+    list-style: none;
+    width: 100%;
+}
+#mobileSettings-submenu ul li {
+    text-align: center;
+    display: flex;
+}
+#mobileSettings-submenu ul li a {
+    color: white;
+    width: 100%;
+    text-decoration: none;
+    border-top: 1px solid white;
+    padding: 1em;
+}
+#mobileSettings-submenu ul li a:hover {
+    background-color: gray;
+}
+#mobile-about {
+    border-bottom: 1px solid white;
+}
+/* End Mobile Nav */
+.maincontainer {
+    margin: 1em 2.5% 2em 2.5%;
+    padding: 1em;
+    visibility: none;
+    border: 4px solid white;
+    filter: drop-shadow(0 0 0.35rem #3d3d3d);
+    width: 90%;
+    background-color: darkgray;
+    transition: 0.35s;
+}
+.content1, .content2, .content3 {
+    display: inline-flex;
+    width: 100%;
+    transition: 0.35s;
+}
+.server-info, .cpu-usage, .memory-usage {
+    padding: 1em 0 1em 2em;
+    width: 30%;
+    border: 3px solid white;
+    margin: 0.25em;
+    background-color: gray;
+}
+.disk-usage, .network-usage, .chron-jobs {
+    padding: 1em 0 1em 2em;
+    width: 30%;
+    border: 3px solid white;
+    margin: 0.25em;
+    background-color: gray;
+}
+.docker-status, .vm-status, .shell {
+    padding: 1em 0 1em 2em;
+    width: 30%;
+    border: 3px solid white;
+    margin: 0.25em;
+    background-color: gray;
+}
+.label {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.server_name {
+    font-weight: 600;
+    font-size: 2rem;
+}
+.server-info > * {
+    padding: 0 1rem 0 1rem;
+    margin-top: 0.5rem;
+}
+#serverNameLink {
+    font-size: 0.75rem;
+    color: darkgray;
+    transform: translate(-8px, -16px);
+    transition: 0.35s;
+}
+.server_name:hover #serverNameLink {
+    animation: change-color 2s ease infinite;
+}
+@keyframes change-color {
+    0% {
+      color: red;
+    }
+    16% {
+        color: orange;
+    }
+    32% {
+      color: yellow;
+    }
+    64% {
+        color: green; 
+    }
+    80% {
+        color: blue;
+    }
+    100% {
+      color: purple;
+    }
+  }
+.server_name a {
+    text-decoration: none;
+    color: white; 
+}
+.php-placeholder {
+    color: #d8d8d8;
+    padding: 2px;
+}
+.server-info > *, .cpu-usage > *, .memory-usage > *,
+.disk-usage > *, .network-usage > *, .docker-status > *,
+.vm-status > *, .chron-jobs > *, .shell > * { 
+    margin-top: 0.5rem;
+}
+.warning-content {
+    color: #d8d8d8;
+}
+.pool_count a {
+    color: white;
+    text-decoration: none;
+}
+.pool_count a:hover {
+    color: darkgray;
+}
+.network-indicator {
+    color: lightblue;
+}
+.docker-status a {
+    color: white;
+    text-decoration: none;
+}
+.chron-jobs a {
+    color: white;
+    text-decoration: none;
+}
+#chronLinks {
+    font-size: 0.75rem;
+    color: darkgray;
+    transform: translateY(-4px);
+}
+.vm-status a:hover i,
+.chron-jobs a:hover i,
+.docker-status a:hover i  {
+    animation: change-color 2s ease infinite;
+}
+.vm-status a {
+    color: white;
+    text-decoration: none;
+}
+.shell .forewarning {
+    margin-right: 1.75rem;
+}
+.shell button {
+    width: 90%;
+    margin-right: 1em;
+    transform: translateX(1px);
+    text-align: center;
+    border: 4px solid white;
+    padding: 1em;
+    background-color: darkgray;
+    color: white;
+}
+.shell button:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1em;
+    color: gray;
+    padding: 1em 0;
+    text-align: center;
+    background-color: white;
+    margin-top: 1em;
+}
+#mobile_footer {
+    display: none;
+    width: 100%;
+    height: 1em;
+    color: gray;
+    padding: 1em 0;
+    text-align: center;
+    background-color: white;;
+}
+@media only screen and (max-width: 948px) {
+    * i {
+        transform: translateY(0px);
+    }
+    .mobile-nav {
+        display: flex;
+    }
+    #sidenav, nav, #powerMenu, #optionsMenu {
+        display: none;
+    }
+    .server-info, .cpu-usage, .memory-usage,
+    .disk-usage, .network-usage, .docker-status,
+    .vm-status, .chron-jobs, .shell { 
+        width: 90%;
+    }
+    .maincontainer {
+        margin: 6em 2.5%;
+        visibility: visible;
+        transition: 0.35s;
+    }
+    .content1, .content2, .content3 {
+        display: block;
+        transition: 0.35s;
+    }
+    .shell button {
+        transform: translateX(5px);
+    }
+    #mobile_footer {
+        display: block;
+    }
+    #footer {
+        display: none;
+    }
+@media only screen and (min-width: 950px) {
+    #mobile-options, #mobileSettings-submenu, #mobilePower-submenu {
+        display: none;
+    }
+  }
+}
