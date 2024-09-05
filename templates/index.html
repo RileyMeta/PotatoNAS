@@ -1,237 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/default.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Favicon Provided by <a href="https://www.flaticon.com/free-icons/potato" title="potato icons">Potato icons created by LAFS - Flaticon</a> -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
-    <title>PotatoNAS</title>
-</head>
+{% block content %}
 
-<body>
-    <nav>
-        <button class="menu-button no-select" onclick="sideNav()"><i class="fa-solid fa-bars"></i></button>
-        <span class="nas_name no-select">PotatoNAS&nbsp;<i class="fa-solid fa-hard-drive"></i></span>
-        <div class="right-buttons no-select">
-            <button class="settings-button" onclick="settings()"><i class="fa-solid fa-gear"></i></button>
-            <button class="power-button" onclick="powerMenu()"><i class="fa-solid fa-power-off"></i></button>
-        </div>
-    </nav>
-    <div class="mobile-nav">
-        <button id="mobileMenu" onclick="mobileOptions()"><i class="fa-solid fa-bars"></i></button>
-        <span class="nas_name no-select">PotatoNAS&nbsp;<i class="fa-solid fa-hard-drive"></i></span>
-        <button id="mobilePower" onclick="mobilePower()"><i class="fa-solid fa-power-off"></i></button>
+<div class="main_content">
+    <div id="system_info" class='container'>
+      <p><span class='title'>System Information</span></p>
+      <p class="hostname"><b>{{ hostname }}</b></p>
+      <p><b>Uptime:</b> {{ uptime }}</p>
+      <p><b>Version:</b> {{ version }}</p>
+      <p><b>Kernel:</b> {{ kernel_version }}</p>
     </div>
-    <div id="mobile-options">
-        <ul>
-            <li><a href="#Home"><i class="fa-solid fa-house"></i>&nbsp;user.SystemName.com</a></li>
-            <li><a href="#SystemStatus"><i class="fa-solid fa-chart-simple"></i>&nbsp;System Status</a></li>
-            <li><a href="#SystemSettings"><i class="fa-solid fa-gear"></i>&nbsp;System Settings</a></li>
-            <li><a href="#NetworkShares"><i class="fa-solid fa-diagram-project"></i>&nbsp;Network Shares</a></li>
-            <li><a href="#VirtualMachines"><i class="fa-solid fa-computer"></i>&nbsp;Virtual Machines</a></li>
-            <li><a href="#Dockers"><i class="fa-brands fa-docker"></i>&nbsp;Dockers</a></li>
-            <li><a href="#Storage"><i class="fa-solid fa-hard-drive"></i>&nbsp;Storage</a></li>
-            <li><a href="#ChronJobs"><i class="fa-solid fa-clock"></i></i>&nbsp;Chron Jobs</a></li>
-            <li><a href="#UserAccounts"><i class="fa-solid fa-user"></i>&nbsp;User Accounts</a></li>
-            <li><a href="#Shell"><i class="fa-solid fa-chevron-right"></i>&nbsp;Shell</a></li>
-            <li><a href="#Options" onclick="mobileSettings()"><i class="fa-solid fa-gear"></i>&nbsp;Options</a></li>
-        </ul>
-    </div>
-    <div id="sidenav">
-        <div class="systemInfo">
-            <span><b>{% print(get_username()) %}@{% print(get_hostname()) %}</b></span>
-            <!-- <span><a href="#Home">user.SystemName.com</a></span> -->
-        </div>
-        <ul>
-            <li><a href="#SystemStatus"><i class="fa-solid fa-chart-simple"></i>&nbsp;System Status</a></li>
-            <li><a href="#SystemSettings"><i class="fa-solid fa-gear"></i>&nbsp;System Settings</a></li>
-            <li><a href="#NetworkShares"><i class="fa-solid fa-diagram-project"></i>&nbsp;Network Shares</a></li>
-            <li><a href="#VirtualMachines"><i class="fa-solid fa-computer"></i>&nbsp;Virtual Machines</a></li>
-            <li><a href="#Dockers"><i class="fa-brands fa-docker"></i>&nbsp;Dockers</a></li>
-            <li><a href="#Storage"><i class="fa-solid fa-hard-drive"></i>&nbsp;Storage</a></li>
-            <li><a href="#ChronJobs"><i class="fa-solid fa-clock"></i></i>&nbsp;Chron Jobs</a></li>
-            <li><a href="#UserAccounts"><i class="fa-solid fa-user"></i>&nbsp;User Accounts</a></li>
-            <li><a href="#Shell"><i class="fa-solid fa-chevron-right"></i>&nbsp;Shell</a></li>
-        </ul>
-    </div>
-    <div id="optionsMenu">
-        <ul>
-            <li><a href="#Passwords"><i class="fa-solid fa-lock"></i>&nbsp;Change Password</a></li>
-            <li><a href="#APIKeys"><i class="fa-solid fa-key"></i>&nbsp;API Keys</a></li>
-            <li><a href="#Guides"><i class="fa-solid fa-book"></i>&nbsp;Guides</a></li>
-            <li><a href="#About"><i class="fa-solid fa-clipboard"></i>&nbsp;About</a></li>
-        </ul>
-    </div>
-    <div id="powerMenu">
-        <ul>
-            <li><a href="#Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a></li>
-            <li><a href="#Restart"><i class="fa-solid fa-arrows-rotate"></i>&nbsp;Restart</a></li>
-            <li><a href="#Shutdown"><i class="fa-solid fa-plug"></i>&nbsp;Shutdown</a></li>
-        </ul>
-    </div>
-    <div id="mobilePower-submenu">
-            <ul>
-                <li><a href="#Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a></li>
-                <li><a href="#Restart"><i class="fa-solid fa-arrows-rotate"></i>&nbsp;Restart</a></li>
-                <li><a href="#Shutdown" id="mobile-shutdown"><i class="fa-solid fa-plug"></i>&nbsp;Shutdown</a></li>
-                <li><a href="#Cancel" id="mobile-cancel" onclick="mobileCancel()"><i class="fa-solid fa-ban"></i>&nbsp;Cancel</a></li>
-            </ul>
-    </div>
-    <div id="mobileSettings-submenu">
-        <ul>
-            <li><a href="#Passwords"><i class="fa-solid fa-lock"></i>&nbsp;Change Password</a></li>
-            <li><a href="#APIKeys"><i class="fa-solid fa-key"></i>&nbsp;API Keys</a></li>
-            <li><a href="#Guides"><i class="fa-solid fa-book"></i>&nbsp;Guides</a></li>
-            <li><a href="#About" id="mobile-about"><i class="fa-solid fa-clipboard"></i>&nbsp;About</a></li>
-            <li><a href="#Cancel" id="mobile-cancel" onclick="mobileSettingsCancel()"><i class="fa-solid fa-ban"></i>&nbsp;Cancel</a></li>
-        </ul>
-    </div>
-    <div class="dropshadow1"></div>
-<div class="maincontainer">
-    <div class="content1">
-        <div class="server-info">
-            <div class="label">System Information</div>
-            <div class="server_name"><a href="#ChangeName">{% print(get_hostname()) %}&nbsp;<i class="fa-solid fa-up-right-from-square" id="serverNameLink"></i></a></div>
-            <div class="uptime"><span>UpTime:</span>&nbsp;<span class="php-placeholder">{% print(get_uptime()) %}</span></div>
-            <div class="IPv4"><span>IPv4:</span>&nbsp;<span class="php-placeholder">{% print(get_ip_address()) %}</span></div>
-            <div class="version"><span>Software Version:</span>&nbsp;<span class="php-placeholder">{% print(VERSION) %}</span></div>
-            <div class="platform"><span>Kernel:</span>&nbsp;<span class="php-placeholder">{% print(get_kernel_version()) %}</span></div>
-        </div>
-        <div class="cpu-usage">
-            <div class="label">CPU Usage</div>
-            <div class="cpu_name"><span>CPU:</span>&nbsp;<span class="php-placeholder">{% print(cpu()) %}</span></div>
-            <!-- <div class="as-of"><span>As of:</span>&nbsp;<span class="php-placeholder">02:23:24</span></div> -->
-            <div class="processes"><span>Active Processes:</span>&nbsp;<span class="php-placeholder">{% print(get_cpu_process()) %}</span></div>
-            <div class="usage"><span>Current Usage:</span>&nbsp;<span class="php-placeholder">{% print(get_cpu_load()) %} %</span></div>
-        </div>
-        <div class="memory-usage">
-            <div class="label">Memory Usage</div>
-            <div class="memory_count"><span>Total:</span>&nbsp;<span class="php-placeholder">{% print(get_total_memory()) %} GB</span></div>
-            <div class="usage"><span>Usage:</span>&nbsp;<span class="php-placeholder">{% print(get_memory_usage()) %} %</span></div>
-            <div class="free-memory"><span>Free:</span>&nbsp;<span class="php-placeholder">{% print(get_free_memory()) %} GB</span></div>
-            <div class="used-memory"><span>Used:</span>&nbsp;<span class="php-placeholder">{% print(get_used_memory()) %} GB</span></div>
-            <!-- <div class="allocated-memory"><span>Allocated:</span>&nbsp;<span class="php-placeholder">10 GiB</span></div> -->
-        </div>
-    </div>
-    <div class="content2">
-        <div class="disk-usage">
-            <div class="label">Disk Usage</div>
-            <div class="storage_path"><span>Path:</span>&nbsp;<span class="php-placeholder">{% print(disk_usage('path')) %}</span></div>
-            <div class="total_storage"><span>Total Storage:</span>&nbsp;<span class="php-placeholder">{% print(disk_usage('size')) %} GB</span></div>
-            <div class="used_storage"><span>Storage in Use:</span>&nbsp;<span class="php-placeholder">{% print(disk_usage('used')) %} GB</span></div>
-            <div class="pool_count"><a href="#Pools">Pools:</a>&nbsp;<span class="php-placeholder">{% print('PlaceHolder') %}</span></div>
-            <div class="logs"><span>Logs:</span>&nbsp;<span class="php-placeholder">{% print(get_logs()) %}</span></div>
-        </div>
-        <div class="network-usage">
-            <div class="label">Network Usage</div>
-            <div class="interface"><span>Interface:</span>&nbsp;<span class="php-placeholder">{{ active_interface[0] }}</span></div>
-            <div class="network-type"><span>Network Type:</span>&nbsp;<span class="php-placeholder">{{ interface_type[0] }}</span></div>
-            <div class="IP-Address"><span>IPv4:</span>&nbsp;<span class="php-placeholder">{% print(get_ip_address()) %}</span></div>
-            <div class="network-speed"><span>Network speed:</span>&nbsp;<span class="php-placeholder">{{ speedtest[0] }} Mbps</span></div>
-            <div class="network-activity"><span>Current Activity:</span>&nbsp;<span class="php-placeholder">20Mbs<i class="fa-solid fa-angle-up network-indicator"></i></span>&nbsp;<span class="php-placeholder">15Mbs<i class="fa-solid fa-angle-down network-indicator"></i></span></div>
-            <div class="vlans"><span>VLANS:</span>&nbsp;<span class="php-placeholder">0</span></div>
-        </div>
-        <div class="chron-jobs">
-            <div class="label">Chron Jobs</div>
-            <div class="active-chrons"><span>Active Chron Jobs:</span>&nbsp;<span class="php-placeholder">0</span></div>
-            <div class="newChron"><a href="#NewChrons">Start a new Chron Job&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-            <div class="manageChron"><a href="#ManageChrons">Manage Chron Jobs&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-            <div class="chronGuides"><a href="#chronGuides">Chron Guides&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-        </div>
-    </div>
-    <div class="content3">
-        <div class="docker-status">
-            <div class="label"><a href="#Dockers">Docker Status&nbsp;<i class="fa-solid fa-up-right-from-square" id="serverNameLink"></i></a></div>
-            <div class="dockers-online"><span>Dockers Live:</span>&nbsp;<span class="php-placeholder">3</span></div>
-            <div class="dockers-down"><span>Dockers Offline:</span>&nbsp;<span class="php-placeholder">1</span></div>
-            <div class="startNewDocker"><a href="#startNewDocker">Start New Dockers&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-            <div class="manageDockers"><a href="#manageDockers">Manager Dockers&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-        </div>
-        <div class="vm-status">
-            <div class="label"><a href="#VirtualMachines">Virtual Machine Status&nbsp;<i class="fa-solid fa-up-right-from-square" id="serverNameLink"></i></a></div>
-            <div class="vms-online"><span>Virtual Machines Online:</span>&nbsp;<span class="php-placeholder">2</span></div>
-            <div class="vms-down"><span>Virtual Machines Offline:</span>&nbsp;<span class="php-placeholder">1</span></div>
-            <div class="startNewVM"><a href="#StartNewVM">Start New Virtual Machine&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-            <div class="manageVMs"><a href="#manageVMs">Manage Virtual Machines&nbsp;<i class="fa-solid fa-up-right-from-square" id="chronLinks"></i></a></div>
-        </div>
-        <div class="shell">
-            <div class="label">Shell Access</div>
-            <div class="forewarning"><span>Forewarning:</span><br><span class="warning-content">Accessing the Shell gives you full control of the system. You CAN break things irrecoverably if you are not absolutely sure of what you're doing.</span></div>
-            <button>Click here to access the Shell</button>
-        </div>
-    </div>
-</div>
-<div id="footer"><a href="#copyright">&copy; Copyright | Riley Ava 2024</a></div>
-<div id="mobile_footer">&copy; Copyright | Riley Ava 2024</div>
-    <script>
-          function sideNav() {
-    var menuBox = document.getElementById('sidenav');
-    if (menuBox.style.left == "0px") {
-      menuBox.style.left = "-400px";
-    } else {
-      menuBox.style.left = "0px";
-    }
-  }
-  function settings() {
-    var menuBox = document.getElementById('optionsMenu');
-    if (menuBox.style.right == "3.5em") {
-        menuBox.style.right = "-200px";
-    } else {
-        menuBox.style.right = "3.5em";
-    }
-  }
-  function powerMenu() {
-    var menuBox = document.getElementById('powerMenu');
-    if (menuBox.style.right == "0px") {
-        menuBox.style.right = "-150px";
-    } else {
-        menuBox.style.right = "0px";
-    }
-  }
-   function mobileOptions() {
-     var menuBox = document.getElementById('mobile-options');
-     if (menuBox.style.top == "5em") {
-        menuBox.style.top = "-50em";
-     } else {
-         menuBox.style.top = "5em";
-     }
-   }
-   function mobilePower() {
-    var menuBox = document.getElementById('mobilePower-submenu');
-    if (menuBox.style.top == "4.75em") {
-        menuBox.style.top = "-50em";
-     } else {
-         menuBox.style.top = "4.75em";
-     }
-   }
-   function mobileCancel() {
-    var menuBox = document.getElementById('mobilePower-submenu');
-    if (menuBox.style.top == "-50em") {
-        menuBox.style.top = "4.75em";
-     } else {
-         menuBox.style.top = "-50em";
-     }
-   }
-   function mobileSettingsCancel() {
-    var menuBox = document.getElementById('mobileSettings-submenu');
-    if (menuBox.style.top == "-50em") {
-        menuBox.style.top = "4.75em";
-     } else {
-         menuBox.style.top = "-50em";
-     }
-   }
-   function mobileSettings() {
-    var menuBox = document.getElementById('mobileSettings-submenu');
-    if (menuBox.style.top == "4.75em") {
-        menuBox.style.top = "-50em";
-     } else {
-         menuBox.style.top = "4.75em";
-     }
-   }
-    </script>
-</body>
 
-</html>
+    <div id="cpu_info" class='container'>
+      <p><span class='title'>CPU Information</span></p>
+      <p><b>CPU:</b> {{ cpu_name }}</p>
+      <p><b>Active Processes:</b> {{ active_processes }}</p>
+      <p><b>CPU Utilization:</b> {{ cpu_utilization }}</p>
+      <p><b>CPU Temperature:</b> {{ cpu_temperature }}</p>
+    </div>
+
+    <div id="memory_info" class='container'>
+      <p><span class='title'>Memory Information</span></p>
+      <p><b>Total Memory:</b> {{ total_memory }}GB</p>
+      <p><b>Memory In Use:</b> {{ used_memory }}GB</p>
+      <p><b>Usage:</b> {{ memory_usage }}%</p>
+    </div>
+
+    <div id="disk_info" class="container">
+      <p><span class='title'>Disk Usage</span></p>
+      <p><b>Path:</b> {{ storage_path }}</p>
+      <p><b>Total Storage:</b> {{ total_storage }}</p>
+      <p><b>Storage in Use:</b> {{ used_disks }}</p>
+      <p><b>Pools:</b> {{ disk_pools }}</p>
+    </div>
+
+    <div id="network_info" class="container">
+      <p><span class='title'>Network Information</span></p>
+      <p><b>Interface:</b> {{ network_interface }}</p>
+      <p><b>Network Type:</b> {{ network_type }}</p>
+      <p><b>IPv4:</b> {{ network_ipv4 }}</p>
+      <p><b>Current Activity:</b> {{ current_acivity }}</p>
+      <p><b>VLANS:</b> {{ active_vlans }}</p>
+    </div>
+
+    <div id="task_info" class="container">
+      <p><span class='title'>Task Information</span></p>
+      <p><b>Active Tasks:</b> {{ active_tasks }}</p>
+      <p><a href="#">Start a new Task&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+      <p><a href="#">Manage Active Tasks&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+      <p><a href="#">Task Guides&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+    </div>
+
+    <div id="docker_info" class='container'>
+        <p><span class='title'>Docker Information</span></p>
+        <p><b>Dockers Live:</b> {{ active_dockers }}</p>
+        <p><b>Dockers Offline:</b> {{ offline_dockers }}</p>
+        <p><a href="#">Start New Docker&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+        <p><a href="#">Manage Dockers&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+    </div>
+
+    <div id="vm_info" class='container'>
+      <p><span class='title'>Virtual Machines</span></p>
+      <p><b>Online VMs:</b> {{ online_vms }}</p>
+      <p><b>Offline VMs:</b> {{ offline_vms }}</p>
+      <p><a href="#">Start New VM&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+      <p><a href="#">Manage VMs&nbsp;<i class="fa-solid fa-up-right-from-square"></i></a></p>
+    </div>
+
+    <div id="shell_access" class='container'>
+      <p><span class='title'>Shell Access</span></p>
+      <p><b>Forewarning!</b></p>
+      <p>Accessing the Shell gives you full control of the system. You are responsible for knowing what each command you input means and does.</p>
+      <p><a href="#" class="shell"><i class="fa-solid fa-terminal"></i>&nbsp;Click here to Access the Shell</a></p>
+    </div>
+  </div>
+
+{% endblock %}

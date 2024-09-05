@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PotatoNAS | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+<style>
+:root {
+    --color1: #454ADE;
+    --color2: #1B1F3B;
+    --color3: #B14AED;
+    --color4: #C874D9;
+    --color5: #E1BBC9;
+}
+*{
+    margin: 0; padding: 0; font-size: 16px; font-family: sans-serif;
+}
+body{
+  background-image: linear-gradient(var(--color5), var(--color4));
+  background-repeat: round;
+  display: flex;
+  justify-content: center;
+  }
+.blink {
+  animation: blinker 1s linear infinite; border: 1px solid var(--color5);
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+} 
+.nasHeader {
+  display: flex; 
+  justify-content: center;
+/*   background-image: url('https://static.vecteezy.com/system/resources/previews/002/375/040/original/modern-white-background-free-vector.jpg');  */
+    background-image: linear-gradient(var(--color2), var(--color3));
+    padding-top: 5em; 
+    margin-top: 5em; 
+    padding-bottom: 5em; 
+    margin-bottom: 5em; 
+    width: 30em; 
+    height: 6em;
+}
+  .nasHeader h1{
+    font-family: sans-serif; 
+    padding-top: 0.5em; 
+    font-size: 2.75em; 
+    color: var(--color5);
+  }
+#loginForms {
+  height: 25em; 
+  padding-top: 0; 
+  margin-top: 0; 
+  background-color: var(--color2);
+/*   background-color: #242323;  */
+  transform: translateY(-5em); 
+  display: flex; 
+  justify-content: center; 
+  text-align: left;
+}
+  .login {
+    filter: drop-shadow(0 0 0.75rem black); padding-top: 3em;
+  }
+  .login-box {
+  display:inline-block; width:80%; height:100%;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--color5);
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid var(--color5);
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--color5);
+  pointer-events: none;
+  transition: .25s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+/*   color: #757575; */
+  color: var(--color4);
+  font-size: 12px;
+}
+
+.login-box button {
+  border: none;
+  width: 100%;
+  height: 3em;
+  background-color: var(--color5);
+  cursor: pointer;
+  transition: 0.5s;
+}
+.login-box button:hover {
+    background-color: var(--color3);
+    transition: 0.5s;
+}
+.login-box form button:active {
+  transform: translateY(2px);
+}
+  p {
+    position: absolute; bottom: 1em; color: grey; font-family: sans-serif; font-size: 0.75rem;
+  }
+</style>
+</head>
+<body>
+
+  
+<div class="login"> 
+  <div class="nasHeader">
+  <h1><i class="fa-solid fa-hard-drive" style="font-size: 2.5rem;"></i>&nbsp;PotatoNAS</h1>
+<div class="blink"></div>
+</div>
+<div id="loginForms">
+  
+  <div class="login-box">
+  <form method="post" style="padding-top: 3em;">
+    <div class="user-box">
+      <input type="text" name="username" id="username" required>
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="password" id="password" required>
+      <label>Password</label>
+    </div>
+    <button><strong>Log In</strong></button>
+  </form>
+</div>
+    <p>PotatoNAS &copy; 2023 | RileyMeta</p>
+</div>
+</d.iv>
+</div>
+
+
+</body>
+</html>

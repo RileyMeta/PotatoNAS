@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/default.css') }}">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <nav>
+        <div id="nav_left">
+          <button onclick="sideNav()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="nav_center">
+          <span>PotatoNAS&nbsp;<i class="fa-solid fa-hard-drive"></i></span>
+        </div>
+        <div id="nav_right">
+          <button onclick="settingsMenu()"><i class="fa-solid fa-gear"></i></button>
+          <button onclick="powerMenu()"><i class="fa-solid fa-power-off"></i></button>
+        </div>
+      </nav>
+      
+      <div id="nav_items">
+        <ul>
+          <li><span class='quick_info'>{{ username }} <strong>@</strong> {{ hostname }}</span></li>
+          <li><a href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i>&nbsp;Home</a></li>
+          <li><a href="{{ url_for('accounts') }}"><i class="fa-solid fa-users"></i>&nbsp;Accounts</a></li>
+          <li><a href="{{ url_for('system_info') }}"><i class="fa-solid fa-computer"></i>&nbsp;System</a></li>
+          <li><a href="{{ url_for('network_and_shares') }}"><i class="fa-solid fa-cloud"></i>&nbsp;Network / Shares</a></li>
+          <li><a href="{{ url_for('tasks') }}"><i class="fa-solid fa-list-check"></i>&nbsp;Tasks</a></li>
+          <li><a href="{{ url_for('virtual_machines') }}"><i class="fa-solid fa-box"></i>&nbsp;Virtual Machines</a></li>
+          <li><a href="{{ url_for('dockers') }}"><i class="fa-brands fa-docker"></i>&nbsp;Dockers</a></li>
+          <li><a href="{{ url_for('system_settings') }}"><i class="fa-solid fa-gear"></i>&nbsp;Settings</a></li>
+          <li><a href="{{ url_for('shell') }}"><i class="fa-solid fa-terminal"></i>&nbsp;Shell</a></li>
+        </ul>
+      </div>
+      
+      <div id="power_menu">
+        <ul>
+          <li><a href="{{ url_for('api_keys') }}"><i class="fa-solid fa-rotate-left"></i>&nbsp;Restart</a></li>
+          <li><a href="{{ url_for('api_keys') }}"><i class="fa-solid fa-power-off"></i>&nbsp;Shutdown</a></li>
+          <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Logout</a></li>
+        </ul>
+      </div>
+      
+      <div id="settings_menu">
+        <ul>
+          <li><a href="{{ url_for('system_settings') }}"><i class="fa-solid fa-gears"></i>&nbsp;Settings</a></li>
+          <li><a href="{{ url_for('api_keys') }}"><i class="fa-solid fa-key"></i>&nbsp;API Keys</a></li>
+          <li><a href="{{ url_for('guides') }}"><i class="fa-solid fa-book"></i>&nbsp;Guides</a></li>
+          <li><a href="{{ url_for('about') }}"><i class="fa-solid fa-circle-info"></i>&nbsp;About</a></li>
+        </ul>
+      </div>
+      
+    {% block content %}
+    {% endblock %}
+    <footer><a href="{{ url_for('copyright') }}">&copy; Copyright 2024 | All Rights Reserved</a></footer>
+    <script>
+      const nav_menu = document.getElementById('nav_items');
+const settings_menu = document.getElementById('settings_menu');
+const power_menu = document.getElementById('power_menu');
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function sideNav() {
+  if (nav_menu.style.left == '0em') {
+    nav_menu.style.left = '-20em';
+  } else {
+    nav_menu.style.left = '0em';
+  }
+}
+
+function powerMenu() {
+  if (power_menu.style.display == 'block') {
+    power_menu.style.display = 'none';
+  } else {
+    power_menu.style.display = 'block';
+    settings_menu.style.display = 'none';
+  }
+}
+
+function settingsMenu() {
+  if (settings_menu.style.display == 'block') {
+    settings_menu.style.display = 'none';
+  } else {
+    settings_menu.style.display = 'block';
+    power_menu.style.display = 'none';
+  }
+}
+
+//  Automatically refresh the Memory Graphic every 5 seconds
+setInterval(function(){
+            document.getElementById('plot').src = "{{ url_for('plot_png') }}" + "?" + new Date().getTime();
+        }, 5000);
+    </script>
+  </body>
+</html>
